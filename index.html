@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD do Sanji</title>
+</head>
+
+<body>
+    <h1>CRUD do Sanji</h1>
+    <p>Bem-vindo ao CRUD do Sanji!</p>
+
+    <div class="menu">
+        <button onclick="Telacriar()"> Criar </button>
+        <button onclick="TelaLer()"> Ler </button>
+        <button onclick="TelaAtualizar()"> Atualizar </button>
+        <button onclick="TelaDeletar()"> Deletar </button>
+    </div>
+
+    <div id="criar">
+        <h1>Cadastrar comidas</h1>
+        <label for="ipt_nomeComida">Cadastrar Estoque de Comidas</label>
+        <input type="text" id="ipt_nomeComida" placeholder="Nome da Comida">
+        <button onclick="criarComida()">Cadastrar</button>
+    </div>
+
+    <div id="ler">
+        <h2>Estoque de comidas</h2>
+        <button onclick="listarComida()">Verificar Quantidade</button>
+        <br>
+        <label for="ipt_nomeComida_pesquisa">Digite o nome da comida pra pesquisar</label>
+        <input type="text" id="ipt_nomeComida_pesquisa">
+        <button onclick="pesquisarComida()">Pesquisar</button>
+        <br>
+        <button onclick="exibirComida()">Exibir Estoque</button>
+        <div id="div_listaComidas"></div>
+    </div>
+
+    <div id="atualizar">
+        <h1>Atualizar comidas</h1>
+        <label for="">Digite o nome atual da comida que você quer editar</label>
+        <input type="text" id="ipt_nome_atual">
+        <br>
+        <label for="">Digite o novo nome da comida que você quer editar</label>
+        <input type="text" id="ipt_novo_nome">
+        <br>
+        <button onclick="alterarNomeComida()">Alterar Nome</button>
+        <div id="resultado"></div>
+    </div>
+
+    <div id="deletar">
+        <h1>Deletar comidas</h1>
+        <label for="">Digite o nome da comida que você quer remover</label>
+        <input type="text" id="ipt_nome_delete">
+        <br>
+        <button onclick="removerComida()">Remover Comida</button>
+        <div id="retornoDelete"></div>
+    </div>
+</body>
+<script>
+
+    let listaComida = []
+
+    function criarComida() {
+        let nomeComida = ipt_nomeComida.value;
+        listaComida.push(nomeComida)
+    }
+
+    function listarComida() {
+        if (listaComida.length < 3) {
+            div_listaComidas.innerHTML = `Desse jeito, o Luffy devora até o navio`
+        } else if (listaComida.length <= 7) {
+            div_listaComidas.innerHTML = `O comilão do Luffy não vai deixar sobrar nenhuma comida`
+        } else if (listaComida.length <= 10) {
+            div_listaComidas.innerHTML = `Assim, talvez sobre um pouco para a tripulação`
+        } else if (listaComida.length < 10) {
+            div_listaComidas.innerHTML = `Desse jeito vai ter comida para todo mundo e ainda consigo guardar um pouco para a senhorita Nami!`
+        }
+    }
+
+    function pesquisarComida() {
+        let nomeComida = ipt_nomeComida_pesquisa.value;
+        let qtdComidasEncontradas = 0
+        for (let i = 0; i < listaComida.length; i++) {
+            if (listaComida[i] == nomeComida) {
+                qtdComidasEncontradas++
+            }
+        }
+        if (qtdComidasEncontradas > 0) {
+            div_listaComidas.innerHTML = `Temos a comida ${nomeComida} e há ${qtdComidasEncontradas} unidade(s) dela`
+        } else {
+            div_listaComidas.innerHTML = `Alguém vai ter que comprar ${nomeComida}, tá fazendo falta...`
+
+        }
+    }
+
+    function exibirComida() {
+        let mensagem = ""
+        let comidasEncontras = []
+        let qtdEncontradas = []
+
+        for (let i = 0; i < listaComida.length; i++) {
+            if (!comidasEncontras.includes(listaComida[i])) {
+                comidasEncontras.push(listaComida[i])
+            }
+        }
+
+        for (let i = 0; i < comidasEncontras.length; i++) {
+            let qtdComidasEncontradas = 0
+            for (let j = 0; j < listaComida.length; j++) {
+                if (listaComida[j] == comidasEncontras[i]) {
+                    qtdComidasEncontradas++
+                }
+            }
+
+            if (qtdComidasEncontradas > 1) {
+                qtdEncontradas.push(`${qtdComidasEncontradas} unidades`)
+            } else {
+                qtdEncontradas.push(`${qtdComidasEncontradas} unidade`)
+            }
+        }
+
+        for (let i = 0; i < comidasEncontras.length; i++) {
+            mensagem += `
+            - ${comidasEncontras[i]} (${qtdEncontradas[i]})<br>`
+        }
+        div_listaComidas.innerHTML = mensagem;
+    }
+
+    function alterarNomeComida() {
+        let nome_atual = ipt_nome_atual.value
+        let novo_nome = ipt_novo_nome.value
+        let mensagem = `A comida '${nome_atual}' não foi encontrada no estoque.`
+        for (let i = 0; i < listaComida.length; i++) {
+            if (listaComida[i] == nome_atual) {
+                mensagem = `A comida '${nome_atual}' foi alterada para '${novo_nome}`
+                listaComida[i] = novo_nome
+            }
+        }
+        resultado.innerHTML = mensagem
+
+    }
+
+    function removerComida() {
+        let nome_delete = ipt_nome_delete.value
+        let mensagem = `A comida '${nome_delete}' não está no estoque.`
+        for (let i = 0; i < listaComida.length; i++) {
+            if (listaComida[i] == nome_delete) {
+                mensagem = `A comida '${nome_delete}' foi removida do estoque.`
+                listaComida.splice(i, 1)
+                i--
+            }
+        }
+        retornoDelete.innerHTML = mensagem
+    }
+
+
+
+
+
+</script>
+
+</html>

@@ -4,12 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>CRUD do Sanji</title>
 </head>
 
 <body>
-    <h1>CRUD do Sanji</h1>
-    <p>Bem-vindo ao CRUD do Sanji!</p>
+    <div class="titulo">
+        <h1>CRUD do Sanji</h1>
+        <p>Bem-vindo ao CRUD do Sanji!</p>
+
+    </div>
 
     <div class="menu">
         <button onclick="Telacriar()"> Criar </button>
@@ -26,7 +30,7 @@
     </div>
 
     <div id="ler">
-        <h2>Estoque de comidas</h2>
+        <h1>Estoque de comidas</h1>
         <button onclick="listarComida()">Verificar Quantidade</button>
         <br>
         <label for="ipt_nomeComida_pesquisa">Digite o nome da comida pra pesquisar</label>
@@ -70,13 +74,14 @@
     function listarComida() {
         if (listaComida.length < 3) {
             div_listaComidas.innerHTML = `Desse jeito, o Luffy devora até o navio`
-        } else if (listaComida.length <= 7) {
+        } else if (listaComida.length <= 7) {       
             div_listaComidas.innerHTML = `O comilão do Luffy não vai deixar sobrar nenhuma comida`
         } else if (listaComida.length <= 10) {
             div_listaComidas.innerHTML = `Assim, talvez sobre um pouco para a tripulação`
-        } else if (listaComida.length < 10) {
+        } else if (listaComida.length > 10) {
             div_listaComidas.innerHTML = `Desse jeito vai ter comida para todo mundo e ainda consigo guardar um pouco para a senhorita Nami!`
         }
+
     }
 
     function pesquisarComida() {
@@ -154,6 +159,36 @@
         }
         retornoDelete.innerHTML = mensagem
     }
+
+    function Telacriar() {
+        criar.style.display = "block"
+        ler.style.display = "none"
+        atualizar.style.display = "none"
+        deletar.style.display = "none"
+    }
+
+    function TelaLer() {
+        criar.style.display = "none"
+        ler.style.display = "block"
+        atualizar.style.display = "none"
+        deletar.style.display = "none"
+    }   
+    
+    function TelaAtualizar() {
+        criar.style.display = "none"
+        ler.style.display = "none"
+        atualizar.style.display = "block"
+        deletar.style.display = "none"
+    }
+
+    function TelaDeletar() {
+        criar.style.display = "none"
+        ler.style.display = "none"
+        atualizar.style.display = "none"
+        deletar.style.display = "block"
+    }
+
+
 
 
 

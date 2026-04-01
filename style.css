@@ -1,0 +1,78 @@
+* {
+    cursor: url('cursor.svg'), auto;
+}
+
+body {
+    background: linear-gradient(to top, blue, white);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.titulo {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 40%;
+}
+
+button {
+    width: 100px;
+    height: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    cursor: url('cursor.svg'), auto;
+    border-radius: 10px;
+    margin-bottom: 20px ;
+
+}
+
+button:hover {
+    transition: 500ms;
+    background-color: darkred;
+    color: white;
+    transform: scale(1.09);
+}
+
+
+
+input {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 200px;
+    height: 30px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    cursor: url('cursor.svg'), auto;
+}
+
+#criar{
+    display: block;
+}
+
+#ler, #atualizar, #deletar {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#criar, #ler, #atualizar, #deletar {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+
